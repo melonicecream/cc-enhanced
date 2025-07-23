@@ -60,18 +60,20 @@
 
 #### Option 1: Install via Cargo
 ```bash
-# Install from GitHub (works now)
-cargo install --git https://github.com/melonicecream/cc-enhanced
-
-# Install from crates.io (after first publish)
+# Install from crates.io (recommended)
 cargo install cc-enhanced
+
+# Install from GitHub 
+cargo install --git https://github.com/melonicecream/cc-enhanced
 ```
+
+> **Requirements:** Rust 1.77+ (MSRV: Minimum Supported Rust Version)
 
 ### 🔧 Development Setup
 For developers who want to contribute or build from source:
 
 ```bash
-# Prerequisites: Rust 1.70+ with Cargo
+# Prerequisites: Rust 1.77+ with Cargo
 
 # Clone the repository
 git clone https://github.com/melonicecream/cc-enhanced.git
