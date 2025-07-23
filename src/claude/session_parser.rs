@@ -361,7 +361,12 @@ mod tests {
 
     fn create_temp_dir() -> PathBuf {
         let temp_dir = std::env::temp_dir().join(format!("claude_test_{}", std::process::id()));
-        fs::create_dir_all(&temp_dir).unwrap();
+        if let Err(_) = fs::create_dir_all(&temp_dir) {
+            // Fallback to current directory if temp creation fails
+            let fallback = PathBuf::from(".").join(format!("test_temp_{}", std::process::id()));
+            fs::create_dir_all(&fallback).unwrap_or_default();
+            return fallback;
+        }
         temp_dir
     }
 
@@ -378,11 +383,10 @@ mod tests {
 
     #[test]
     fn test_session_parser_creation() {
-        let temp_dir = create_temp_dir();
-        let parser = SessionParser::new(temp_dir.clone());
-        assert_eq!(parser.claude_dir, temp_dir);
-
-        let _ = fs::remove_dir_all(&temp_dir);
+        // Use a simple test directory path instead of creating actual directories
+        let test_dir = PathBuf::from("/test/claude");
+        let parser = SessionParser::new(test_dir.clone());
+        assert_eq!(parser.claude_dir, test_dir);
     }
 
     #[test]
