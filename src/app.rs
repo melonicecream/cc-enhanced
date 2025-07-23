@@ -882,9 +882,9 @@ impl App {
         data_tx: mpsc::UnboundedSender<DataLoadingMessage>,
     ) {
         // Clone the paths we need for the background task
-        let claude_dir =
-            std::path::PathBuf::from(std::env::var("HOME").unwrap_or_else(|_| ".".to_string()))
-                .join(".claude");
+        let claude_dir = dirs::home_dir()
+            .unwrap_or_else(|| std::path::PathBuf::from("."))
+            .join(".claude");
 
         tokio::spawn(async move {
             while (refresh_rx.recv().await).is_some() {

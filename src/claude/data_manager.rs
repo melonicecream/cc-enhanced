@@ -60,8 +60,9 @@ pub struct ClaudeDataManager {
 impl ClaudeDataManager {
     /// Create a new Claude data manager
     pub fn new() -> Result<Self> {
-        let home_dir = std::env::var("HOME")?;
-        let claude_dir = Path::new(&home_dir).join(".claude");
+        let home_dir = dirs::home_dir()
+            .ok_or_else(|| anyhow::anyhow!("Could not find home directory"))?;
+        let claude_dir = home_dir.join(".claude");
         
         let project_scanner = ProjectScanner::new(claude_dir.clone());
         let session_parser = SessionParser::new(claude_dir.clone());

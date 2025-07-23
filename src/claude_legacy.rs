@@ -310,8 +310,9 @@ pub struct OpenRouterPricing {
 
 impl Default for OpenRouterPricing {
     fn default() -> Self {
-        let home_dir = std::env::var("HOME").unwrap_or_else(|_| "/tmp".to_string());
-        let cache_path = Path::new(&home_dir)
+        let home_dir = dirs::home_dir()
+            .unwrap_or_else(|| std::path::PathBuf::from("/tmp"));
+        let cache_path = home_dir
             .join(".claude")
             .join("pricing_cache.json");
         Self {
@@ -628,8 +629,9 @@ pub struct ClaudeDataManager {
 impl ClaudeDataManager {
     /// Create a new Claude data manager
     pub fn new() -> Result<Self> {
-        let home_dir = std::env::var("HOME")?;
-        let claude_dir = Path::new(&home_dir).join(".claude");
+        let home_dir = dirs::home_dir()
+            .ok_or_else(|| anyhow::anyhow!("Could not find home directory"))?;
+        let claude_dir = home_dir.join(".claude");
         let mut openrouter_pricing = OpenRouterPricing::new(&claude_dir);
 
         // Initialize cache from file (ignore errors, fallback will be used)

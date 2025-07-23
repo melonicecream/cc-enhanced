@@ -1,7 +1,7 @@
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 use std::time::Duration;
 
 /// Theme options
@@ -99,13 +99,14 @@ impl Config {
 
     /// Get the configuration file path
     fn config_path() -> Result<PathBuf> {
-        let home_dir = std::env::var("HOME")?;
+        let home_dir = dirs::home_dir()
+            .ok_or_else(|| anyhow::anyhow!("Could not find home directory"))?;
 
         // Use XDG config directory standard or fallback to ~/.config
         let config_dir = if let Ok(xdg_config) = std::env::var("XDG_CONFIG_HOME") {
             PathBuf::from(xdg_config)
         } else {
-            Path::new(&home_dir).join(".config")
+            home_dir.join(".config")
         };
 
         let app_config_dir = config_dir.join("cc-enhanced");
@@ -118,8 +119,9 @@ impl Config {
 
     /// Try to migrate configuration from old location
     fn try_migrate_old_config() -> Result<Self> {
-        let home_dir = std::env::var("HOME")?;
-        let old_config_path = Path::new(&home_dir)
+        let home_dir = dirs::home_dir()
+            .ok_or_else(|| anyhow::anyhow!("Could not find home directory"))?;
+        let old_config_path = home_dir
             .join(".claude")
             .join("cc-enhanced-config.json");
 

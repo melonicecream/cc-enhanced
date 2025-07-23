@@ -86,8 +86,9 @@ pub struct TodoManager {
 impl TodoManager {
     /// Create a new TodoManager
     pub fn new() -> Result<Self> {
-        let home_dir = std::env::var("HOME")?;
-        let todos_dir = Path::new(&home_dir).join(".claude").join("todos");
+        let home_dir = dirs::home_dir()
+            .ok_or_else(|| anyhow::anyhow!("Could not find home directory"))?;
+        let todos_dir = home_dir.join(".claude").join("todos");
 
         Ok(Self { todos_dir })
     }
@@ -157,8 +158,9 @@ impl TodoManager {
     /// Reconstruct project path from session ID
     fn reconstruct_project_path(&self, session_id: &str) -> Result<String> {
         // Check in projects directory for this session ID
-        let home_dir = std::env::var("HOME")?;
-        let projects_dir = Path::new(&home_dir).join(".claude").join("projects");
+        let home_dir = dirs::home_dir()
+            .ok_or_else(|| anyhow::anyhow!("Could not find home directory"))?;
+        let projects_dir = home_dir.join(".claude").join("projects");
 
         if !projects_dir.exists() {
             return Ok("unknown".to_string());
