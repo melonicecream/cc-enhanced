@@ -58,24 +58,7 @@
 
 ### 🚀 Quick Install (Recommended)
 
-#### Option 1: Download Binary (Easiest)
-1. Go to [Releases](https://github.com/melonicecream/cc-enhanced/releases)
-2. Download the latest version for your OS:
-   - `cc-enhanced-linux-x86_64.tar.gz` (Linux)
-   - `cc-enhanced-macos-x86_64.tar.gz` (macOS Intel)
-   - `cc-enhanced-macos-aarch64.tar.gz` (macOS Apple Silicon)
-   - `cc-enhanced-windows-x86_64.zip` (Windows)
-3. Extract and run:
-   ```bash
-   # Linux/macOS
-   tar xzf cc-enhanced-*.tar.gz
-   ./cc-enhanced
-   
-   # Windows
-   # Extract zip file and run cc-enhanced.exe
-   ```
-
-#### Option 2: Install via Cargo
+#### Option 1: Install via Cargo
 ```bash
 # Install from GitHub (works now)
 cargo install --git https://github.com/melonicecream/cc-enhanced
