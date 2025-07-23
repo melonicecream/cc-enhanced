@@ -99,8 +99,8 @@ impl Config {
 
     /// Get the configuration file path
     fn config_path() -> Result<PathBuf> {
-        let home_dir = dirs::home_dir()
-            .ok_or_else(|| anyhow::anyhow!("Could not find home directory"))?;
+        let home_dir =
+            dirs::home_dir().ok_or_else(|| anyhow::anyhow!("Could not find home directory"))?;
 
         // Use XDG config directory standard or fallback to ~/.config
         let config_dir = if let Ok(xdg_config) = std::env::var("XDG_CONFIG_HOME") {
@@ -119,11 +119,9 @@ impl Config {
 
     /// Try to migrate configuration from old location
     fn try_migrate_old_config() -> Result<Self> {
-        let home_dir = dirs::home_dir()
-            .ok_or_else(|| anyhow::anyhow!("Could not find home directory"))?;
-        let old_config_path = home_dir
-            .join(".claude")
-            .join("cc-enhanced-config.json");
+        let home_dir =
+            dirs::home_dir().ok_or_else(|| anyhow::anyhow!("Could not find home directory"))?;
+        let old_config_path = home_dir.join(".claude").join("cc-enhanced-config.json");
 
         if old_config_path.exists() {
             let content = fs::read_to_string(&old_config_path)?;
