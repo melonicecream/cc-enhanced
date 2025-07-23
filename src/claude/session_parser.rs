@@ -361,7 +361,7 @@ mod tests {
 
     fn create_temp_dir() -> PathBuf {
         let temp_dir = std::env::temp_dir().join(format!("claude_test_{}", std::process::id()));
-        if let Err(_) = fs::create_dir_all(&temp_dir) {
+        if fs::create_dir_all(&temp_dir).is_err() {
             // Fallback to current directory if temp creation fails
             let fallback = PathBuf::from(".").join(format!("test_temp_{}", std::process::id()));
             fs::create_dir_all(&fallback).unwrap_or_default();
