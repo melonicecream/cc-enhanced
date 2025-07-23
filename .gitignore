@@ -1,0 +1,54 @@
+# Compiled binary
+/target/
+**/*.rs.bk
+*.pdb
+
+# Cargo lock file (include for applications)
+# Cargo.lock
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Local configuration
+.env
+.env.local
+
+# Test artifacts
+/coverage/
+tarpaulin-report.html
+cobertura.xml
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Development artifacts
+/docs/build/
+/site/
+/dist/
+/build/
+
+# Local development database
+*.db
+*.sqlite
+
+# Backup files
+*.bak
+*.backup
+
+# Claude Code project instructions (internal use only)
+CLAUDE.md
